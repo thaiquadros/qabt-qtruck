@@ -4,7 +4,11 @@ import UsersController from './controllers/UsersController';
 import FoodtrucksController from './controllers/FoodtrucksController';
 import ReviewsController from './controllers/ReviewsController';
 
+import HelpersController from './controllers/HelpersController';
+
 const routes = Router();
+
+routes.delete('/helpers-reset', HelpersController.resetUser)
 
 routes.post('/signup', UsersController.signup)
 routes.post('/sessions', UsersController.sessions)

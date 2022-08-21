@@ -12,7 +12,7 @@ export default {
     const {
       name,
       instagram,
-      password, yarn
+      password,
     } = req.body;
 
     const data = {

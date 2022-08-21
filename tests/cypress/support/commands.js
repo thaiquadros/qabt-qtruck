@@ -23,23 +23,25 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-Cypress.Commands.add('login', (user) => {
-    cy.visit('/')
 
-    cy.get('input[name=instagram]').type(user.instagram)
-    cy.get('input[name=password]').type(user.password)
-
-    cy.contains('button', 'Entrar').click()
+Cypress.Commands.add('apiResetUser', (instagram) => {
+    cy.request({
+        url: 'http://localhost:3333/helpers-reset',
+        method: 'DELETE',
+        qs: { instagram: instagram }
+    }).then(response => {
+        expect(response.status).to.eql(204)
+    })
 })
 
-Cypress.Commands.add('modalHaveText', (text) => {
-    cy.get('.swal2-html-container')
-        .should('be.visible')
-        .should('have.text', text)
-})
+Cypress.Commands.add('apiCreateUser', (payload)=> {
+    cy.apiResetUser(payload.instagram)
 
-Cypress.Commands.add('loggedUser', (name) => {
-    cy.get('.logged-user')
-        .should('be.visible')
-        .should('have.text', `Olá, ${name}`)
+    cy.request({
+        url: 'http://localhost:3333/signup',
+        method: 'POST',
+        body: payload
+    }).then(response => {
+        expect(response.status).to.eql(201)
+    })
 })
