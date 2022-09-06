@@ -16,6 +16,8 @@ class CreatePage {
 
         cy.contains('button', foodtruck.open_on_weekends ? 'Sim' : 'Não' )
             .click()
+
+        
     }
 
     submit() {
