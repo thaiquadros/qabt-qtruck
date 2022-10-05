@@ -22,10 +22,9 @@ Cypress.Commands.add('apiResetUser', (instagram) => {
     cy.request({
         url: API_URL + '/helpers-reset',
         method: 'DELETE',
-        qs: { instagram: instagram },
+        qs: { instagram: instagram }
     }).then(response => {
         expect(response.status).to.eql(204)
-        
     })
 })
 
